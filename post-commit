@@ -1,0 +1,20 @@
+#!/bin/bash
+
+exec < /dev/tty
+
+###############################################################################
+# Warns if you try to merge the "qa" branch on "master                      
+###############################################################################
+branch_name=$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)
+
+if [[ $branch_name == "master" ]]; then
+    commit_message=$(git log -g -2 --pretty=format:"%s" | head -n 1)
+
+    if [[ $commit_message == "Merge branch 'qa'" ]]; then
+        read -p "Do you really want to merge the qa branch on master?  (y/N) " answer
+        if [[ "$answer" != "y" ]]; then
+            last_commit_before_merge=$(git log -g -2 --pretty=format:"%h" | tail -n 1)
+            git reset --hard $last_commit_before_merge
+        fi
+    fi
+fi
