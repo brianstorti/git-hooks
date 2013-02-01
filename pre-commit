@@ -5,9 +5,9 @@ exec < /dev/tty
 git diff --cached | ack "debugger"
 rc=$?
 
-if [ $rc == 0 ]; then
-  read -p "[pre-commit hook] Do you really want to commit this 'debugger'? (y/N) " answer
-  if [ "$answer" != "y" ]; then
-      exit 1;
-  fi
+if [[ $rc == 0 ]]; then
+    read -p "Do you really want to commit this 'debugger'? (y/N) " answer
+    if [[ "$answer" != "y" ]]; then
+        exit 1;
+    fi
 fi
