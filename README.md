@@ -15,7 +15,7 @@ Here is the rules that these hooks assume that you should follow (fork and custo
 * As soon as the feature is ready to go to production, the feature branch is merged on master
 * The qa branch should never be merged on master
 * The qa branch should never be merged on the feature branch
-* You should not commit directly on the master on qa branches
+* You should not commit directly on the master or qa branches
 * After a feature branch is merged on master, it should be deleted (both locally and remotely)
 
 ```
