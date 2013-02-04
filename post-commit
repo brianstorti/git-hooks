@@ -13,8 +13,7 @@ if [[ $branch_name == "master" ]]; then
     if [[ $commit_message == "Merge branch 'qa'" ]]; then
         read -p "Do you really want to merge the qa branch on master?  (y/N) " answer
         if [[ "$answer" != "y" ]]; then
-            last_commit_before_merge=$(git log -g -2 --pretty=format:"%h" | tail -n 1)
-            git reset --hard $last_commit_before_merge
+            git reset --merge HEAD~1
         fi
     fi
 fi
