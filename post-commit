@@ -7,13 +7,15 @@ exec < /dev/tty
 ###############################################################################
 branch_name=$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)
 
-if [[ $branch_name == "master" ]]; then
-    commit_message=$(git log -g -2 --pretty=format:"%s" | head -n 1)
+message_for_conflict_merge="commit (merge): Merge branch 'qa'"
 
-    if [[ $commit_message == "Merge branch 'qa'" ]]; then
-        read -p "Do you really want to merge the qa branch on master?  (y/N) " answer
+if [[ $branch_name == "master" ]]; then
+    reflog_message=$(git reflog show master -1)
+
+    if [[ $reflog_message =~ $message_for_conflict_merge ]]; then
+        read -p "Do you really want to merge the qa branch on master? (y/N) " answer
         if [[ "$answer" != "y" ]]; then
-            git reset --merge HEAD~1
+            git reset --merge master@{1}
         fi
     fi
 fi

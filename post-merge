@@ -2,18 +2,38 @@
 
 exec < /dev/tty
 
+# Merge can go three ways:
+# * F: fast forward: no commit is created, only a ref is changed
+# * A: automatic: true merge (non-ff) without conflicts. A new commit is created
+# * C: merge with conflicts: no commit is created but the index is prepared (partially)
+#      for a merge commit
+
+# How it appears on reflog:
+# eccb159 master@{0}: commit (merge): Merge branch 'qa'   -> When there is a conflict (C)
+# d021b0e master@{1}: merge qa: Merge made by recursive.  -> Automatic (A)
+# e1cde23 master@{2}: merge qa: Fast-forward              -> Fast-forward (F)
+
+# For cases F and A, the "post-merge" hook is called, but for case C, just the
+# "post-commit" is called, so we need to do the verification there, too.
+
 ###############################################################################
-# Warns if you try to merge the "qa" branch on "master                      
+# Warns if you try
+#  * to merge the "qa" branch on master
+#  * to merge on master a branch that is not yet merged on qa
 ###############################################################################
+
 branch_name=$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)
 
-if [[ $branch_name == "master" ]]; then
-    commit_message=$(git log -g -2 --pretty=format:"%s" | head -n 1)
+message_for_automatic_merge="merge qa: Merge made by recursive"
+message_for_ff_merge="merge qa: Fast-forward"
 
-    if [[ $commit_message == "Merge branch 'qa'" ]]; then
-        read -p "Do you really want to merge the qa branch on master?  (y/N) " answer
+if [[ $branch_name == "master" ]]; then
+    reflog_message=$(git reflog show master -1)
+
+    if [[ ($reflog_message =~ $message_for_automatic_merge) || ($reflog_message =~ $message_for_ff_merge) ]]; then
+        read -p "Do you really want to merge the qa branch on master? (y/N) " answer
         if [[ "$answer" != "y" ]]; then
-            git reset --merge HEAD~1
+            git reset --merge master@{1}
         fi
     fi
 fi
