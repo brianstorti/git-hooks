@@ -13,7 +13,6 @@ setUp() {
 
     mkdir test_repo
     cd test_repo
-    touch .gitignore
     git init > /dev/null
     cp ../../hooks/* .git/hooks
     chmod +x .git/hooks/*
