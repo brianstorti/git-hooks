@@ -6,9 +6,7 @@ exec < /dev/tty
 # Warns if you try to commit a "debugger"
 ###############################################################################
 git diff --cached | grep -q "debugger"
-rc=$?
-
-if [[ $rc == 0 ]]; then
+if [[ $? == 0 ]]; then
     read -p "Do you really want to commit this 'debugger'? (y/N) " answer
     if [[ "$answer" != "y" ]]; then
         exit 1;
