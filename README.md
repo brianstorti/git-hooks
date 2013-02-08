@@ -2,6 +2,8 @@
 
 Some git hooks to make our lives easier and safer.
 
+![git-hook-example](https://www.dropbox.com/s/m7m5x1jmeiraves/git-hooks.png)
+
 ## How it works?
 
 These hooks try to keep you on the right path of your development workflow. 
