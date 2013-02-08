@@ -2,7 +2,7 @@
 
 Some git hooks to make our lives easier and safer.
 
-![git-hook-example](https://www.dropbox.com/s/m7m5x1jmeiraves/git-hooks.png)
+![example](http://img195.imageshack.us/img195/3985/screenshot20130208at324.png)
 
 ## How it works?
 
