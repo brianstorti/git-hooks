@@ -23,17 +23,31 @@ exec < /dev/tty
 ###############################################################################
 
 branch_name=$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)
+merged_branch_name=$(git reflog show master -1 | cut -d" " -f 4 | sed "s/://")
 
-message_for_automatic_merge="merge qa: Merge made by recursive"
-message_for_ff_merge="merge qa: Fast-forward"
+if [[ $merged_branch_name == "qa" ]]; then
+    read -p "Do you really want to merge the qa branch? (y/N) " answer
+    if [[ "$answer" != "y" ]]; then
+        git reset --merge master@{1}
+    fi
+fi
 
 if [[ $branch_name == "master" ]]; then
-    reflog_message=$(git reflog show master -1)
-
-    if [[ ($reflog_message =~ $message_for_automatic_merge) || ($reflog_message =~ $message_for_ff_merge) ]]; then
-        read -p "Do you really want to merge the qa branch on master? (y/N) " answer
+    git branch --merged qa | grep $merged_branch_name
+    if [[ $? == 1 ]]; then
+        read -p "The branch '$merged_branch_name' is not merged on qa yet. Do you really want to merge it on master? (y/N) " answer
         if [[ "$answer" != "y" ]]; then
             git reset --merge master@{1}
         fi
     fi
+
+    read -p "Branch successfully merged on master. Do you want to remove it, both locally and remotely? (y/N) " answer
+    if [[ "$answer" == "y" ]]; then
+        git branch -D $merged_branch_name
+        git remote | grep origin
+        if [[ $? == 0 ]]; then
+            git push origin --delete $merged_branch_name
+        fi
+    fi
 fi
+
