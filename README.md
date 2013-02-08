@@ -44,7 +44,7 @@ master*   qa   feature_branch
 **Warning: This will override all of your custom git hooks. If you haven't any custom hook, don't worry, but if you do, make sure to backup it first.**
 
 Just copy this on the root path of your project, wait some seconds and you should be good to go.
-``git clone git@github.com:brianstorti/git-hooks.git /tmp/git-hooks;cp /tmp/git-hooks/hooks/* .git/hooks && chmod +x .git/hooks/*```
+``git clone git@github.com:brianstorti/git-hooks.git /tmp/git-hooks;cp /tmp/git-hooks/hooks/* .git/hooks;chmod +x .git/hooks/*```
 
 ## License
 
