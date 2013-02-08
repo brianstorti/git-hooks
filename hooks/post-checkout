@@ -1,0 +1,21 @@
+#!/bin/bash
+
+exec < /dev/tty
+
+###############################################################################
+# Warns if you try to create a new branch from other than master
+###############################################################################
+branch_name=$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)
+last_commit_from_master=$(git reflog show master -1 | cut -d" " -f 1)
+current_commit=$2
+
+git reflog show $branch_name@{0} -1 | grep -q "branch: Created"
+if [[ $? == 0 && !($current_commit =~ $last_commit_from_master) ]]; then
+    read -p "This branch was not created from master. Do you want to delete and recreate it from master? (y/N) " answer
+    if [[ "$answer" == "y" ]]; then
+        git checkout master
+        git branch -D $branch_name
+        git checkout -b $branch_name
+        echo "This branch is now a master child."
+    fi
+fi
