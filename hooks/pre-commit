@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 
 exec < /dev/tty
 
 ###############################################################################
 # Warns if you try to commit a "debugger"
 ###############################################################################
-git diff --cached | ack "debugger"
+git diff --cached | grep "debugger"
 rc=$?
 
 if [[ $rc == 0 ]]; then
@@ -16,12 +16,12 @@ if [[ $rc == 0 ]]; then
 fi
 
 ###############################################################################
-# Warns if you try to commit directly to the master branch
+# Warns if you try to commit directly to the qa or master branch
 ###############################################################################
 branch_name=$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)
 
-if [[ $branch_name == "master" ]]; then
-    read -p "Do you really want to commit directly to master? (y/N) " answer
+if [[ $branch_name == "master" || $branch_name == "qa" ]]; then
+    read -p "Do you really want to commit directly to $branch_name? (y/N) " answer
     if [[ "$answer" != "y" ]]; then
         exit 1;
     fi
