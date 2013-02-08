@@ -34,7 +34,7 @@ if [[ $merged_branch_name == "qa" ]]; then
 fi
 
 if [[ $branch_name == "master" ]]; then
-    git branch --merged qa | grep $merged_branch_name
+    git branch --merged qa | grep -q $merged_branch_name
     if [[ $? == 1 ]]; then
         read -p "The branch '$merged_branch_name' is not merged on qa yet. Do you really want to merge it on master? (y/N) " answer
         if [[ "$answer" != "y" ]]; then
@@ -46,7 +46,7 @@ if [[ $branch_name == "master" ]]; then
     read -p "Branch successfully merged on master. Do you want to remove it, both locally and remotely? (y/N) " answer
     if [[ "$answer" == "y" ]]; then
         git branch -D $merged_branch_name
-        git remote | grep origin
+        git remote | grep -q origin
         if [[ $? == 0 ]]; then
             git push origin --delete $merged_branch_name
         fi
