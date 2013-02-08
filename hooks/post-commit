@@ -4,18 +4,16 @@ exec < /dev/tty
 
 ###############################################################################
 # Warns if you try to merge the "qa" branch on "master                      
+# (This validation need to be done here because the merge hook is not called
+#  for merges with conflicts)
 ###############################################################################
-branch_name=$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)
 
-message_for_conflict_merge="commit (merge): Merge branch 'qa'"
+reflog_message=$(git reflog show master -1)
+merged_branch_name=$(echo $reflog_message | cut -d" " -f 7 | sed "s/'//g")
 
-if [[ $branch_name == "master" ]]; then
-    reflog_message=$(git reflog show master -1)
-
-    if [[ $reflog_message =~ $message_for_conflict_merge ]]; then
-        read -p "Do you really want to merge the qa branch on master? (y/N) " answer
-        if [[ "$answer" != "y" ]]; then
-            git reset --merge master@{1}
-        fi
+if [[ $reflog_message =~ "commit (merge)" && $merged_branch_name == "qa" ]]; then
+    read -p "Do you really want to merge the qa branch on master? (y/N) " answer
+    if [[ "$answer" != "y" ]]; then
+        git reset --merge master@{1}
     fi
 fi
