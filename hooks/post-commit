@@ -8,12 +8,12 @@ exec < /dev/tty
 #  for merges with conflicts)
 ###############################################################################
 
-reflog_message=$(git reflog show master -1)
+reflog_message=$(git reflog -1)
 merged_branch_name=$(echo $reflog_message | cut -d" " -f 7 | sed "s/'//g")
 
 if [[ $reflog_message =~ "commit (merge)" && $merged_branch_name == "qa" ]]; then
     read -p "Do you really want to merge the qa branch on master? (y/N) " answer
     if [[ "$answer" != "y" ]]; then
-        git reset --merge master@{1}
+        git reset --merge HEAD@{1}
     fi
 fi
