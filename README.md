@@ -39,6 +39,13 @@ master*   qa   feature_branch
 [4] Finally, when the feature is ready to go do production, it's merged on master
 ```
 
+As always, you can just bypass the validations with `--no-verify`:
+```
+git checkout master
+git add .
+git commit --no-verify -m "deal with it"
+```
+
 ## How to use?
 
 **Warning: This will override all of your custom git hooks. If you don't have any custom hook, don't worry, but if you do, make sure to backup it first.**
