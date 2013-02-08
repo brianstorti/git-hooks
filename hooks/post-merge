@@ -22,7 +22,7 @@ exec < /dev/tty
 #  * to merge on master a branch that is not yet merged on qa
 ###############################################################################
 
-branch_name=$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)
+branch_name=$(git branch | grep "*" | sed "s/\* //")
 merged_branch_name=$(git reflog -1 | cut -d" " -f 4 | sed "s/://")
 
 if [[ $merged_branch_name == "qa" ]]; then

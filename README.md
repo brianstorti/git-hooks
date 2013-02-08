@@ -35,7 +35,7 @@ master*   qa   feature_branch
    |<------+---[4]--|
    |       |        |
 
-[1] A new feature branch is created based on master
+[1] A new feature branch is created, based on master
 [2] After my work is done, the feature branch is merged on qa
 [3] If any change is needed, I change my feature branch and merge it on qa again
 [4] Finally, when the feature is ready to go do production, it's merged on master
@@ -48,7 +48,7 @@ git add .
 git commit --no-verify -m "deal with it"
 ```
 
-## How to use?
+## How to use it?
 
 **Warning: This will override all of your custom git hooks. If you don't have any custom hook, don't worry, but if you do, make sure to backup it first.**
 

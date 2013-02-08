@@ -5,7 +5,7 @@ exec < /dev/tty
 ###############################################################################
 # Warns if you try to create a new branch from other than master
 ###############################################################################
-branch_name=$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)
+branch_name=$(git branch | grep "*" | sed "s/\* //")
 last_commit_from_master=$(git reflog show master -1 | cut -d" " -f 1)
 current_commit=$2
 
