@@ -23,12 +23,13 @@ exec < /dev/tty
 ###############################################################################
 
 branch_name=$(git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3)
-merged_branch_name=$(git reflog show master -1 | cut -d" " -f 4 | sed "s/://")
+merged_branch_name=$(git reflog -1 | cut -d" " -f 4 | sed "s/://")
 
 if [[ $merged_branch_name == "qa" ]]; then
     read -p "Do you really want to merge the qa branch? (y/N) " answer
     if [[ "$answer" != "y" ]]; then
-        git reset --merge master@{1}
+        git reset --merge HEAD@{1}
+        exit 1
     fi
 fi
 
@@ -37,7 +38,8 @@ if [[ $branch_name == "master" ]]; then
     if [[ $? == 1 ]]; then
         read -p "The branch '$merged_branch_name' is not merged on qa yet. Do you really want to merge it on master? (y/N) " answer
         if [[ "$answer" != "y" ]]; then
-            git reset --merge master@{1}
+            git reset --merge HEAD@{1}
+            exit 1
         fi
     fi
 
