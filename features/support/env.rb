@@ -8,5 +8,5 @@ Before do
 end
 
 After do
-  `rm -rf test_repo`
+  #`rm -rf test_repo`
 end
