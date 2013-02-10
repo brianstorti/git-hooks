@@ -20,6 +20,7 @@ branch_name=$(git branch | grep "*" | sed "s/\* //")
 
 if [[ $branch_name == "master" || $branch_name == "qa" ]]; then
     read -p "Do you really want to commit directly to $branch_name? (y/N) " answer
+    echo "answer = $answer" > answer.txt
     if [[ "$answer" != "y" ]]; then
         exit 1;
     fi
