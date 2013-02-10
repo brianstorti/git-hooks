@@ -1,4 +1,4 @@
-# git-hooks (wip)
+# git-hooks
 
 Some git hooks to make our lives easier and safer.
 
@@ -6,9 +6,9 @@ Some git hooks to make our lives easier and safer.
 
 ## How it works?
 
-These hooks try to keep you on the right path of your development workflow. 
-It never stops you from doing anything, it just says what you are - probably - doing wrong and asks for confirmation to continue.
-Here is the rules that these hooks assume that you should follow (fork and customize if it doesn't fit your needs):
+These hooks try to keep you on the right path of your development workflow.
+It never stops you from doing anything; it just says what you are doing wrong and asks for confirmation to continue.
+Here are the rules that these hooks assume that you should follow (fork and customize it if it doesn't fit your needs):
 
 * Master is always deployable
 * Every new feature or bugfix should be done in a separated branch (here called "feature branch")
@@ -50,9 +50,10 @@ git commit --no-verify -m "deal with it"
 
 ## How to use it?
 
-**Warning: This will override all of your custom git hooks. If you don't have any custom hook, don't worry, but if you do, make sure to backup it first.**
 
-Just copy this on the root path of your project, wait some seconds and you should be good to go.
+**Warning: This will override all of your custom git hooks. If you don't have any custom hook, don't worry. But if you do, make sure to back it up first.**
+
+Just copy this on the root path of your project, wait for some seconds and you should be good to go.
 ``git clone git@github.com:brianstorti/git-hooks.git /tmp/git-hooks;cp /tmp/git-hooks/hooks/* .git/hooks;chmod +x .git/hooks/*```
 
 ## License
