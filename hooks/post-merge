@@ -18,7 +18,7 @@ exec < /dev/tty
 
 ###############################################################################
 # Warns if you try
-#  * to merge the "qa" branch on master
+#  * to merge the "qa" branch on any other branch
 #  * to merge on master a branch that is not yet merged on qa
 ###############################################################################
 

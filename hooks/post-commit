@@ -3,7 +3,7 @@
 exec < /dev/tty
 
 ###############################################################################
-# Warns if you try to merge the "qa" branch on "master                      
+# Warns if you try to merge the "qa" branch on any other branch
 # (This validation need to be done here because the merge hook is not called
 #  for merges with conflicts)
 ###############################################################################
@@ -12,7 +12,7 @@ reflog_message=$(git reflog -1)
 merged_branch_name=$(echo $reflog_message | cut -d" " -f 7 | sed "s/'//g")
 
 if [[ $reflog_message =~ "commit (merge)" && $merged_branch_name == "qa" ]]; then
-    read -p "Do you really want to merge the qa branch on master? (y/N) " answer
+    read -p "Do you really want to merge the qa branch? (y/N) " answer
     if [[ "$answer" != "y" ]]; then
         git reset --merge HEAD@{1}
     fi
