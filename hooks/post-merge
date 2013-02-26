@@ -23,7 +23,13 @@ exec < /dev/tty
 ###############################################################################
 
 branch_name=$(git branch | grep "*" | sed "s/\* //")
-merged_branch_name=$(git reflog -1 | cut -d" " -f 4 | sed "s/://")
+reflog_message=$(git reflog -1)
+merged_branch_name=$(echo $reflog_message | cut -d" " -f 4 | sed "s/://")
+
+# if the merge was caused by a "git pull", we can safely ignore it
+if [[ $reflog_message =~ "pull" ]]; then
+    exit 0
+fi
 
 if [[ $merged_branch_name == "qa" ]]; then
     read -p "Do you really want to merge the qa branch? (y/N) " answer
