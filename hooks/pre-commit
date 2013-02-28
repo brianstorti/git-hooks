@@ -2,16 +2,18 @@
 
 exec < /dev/tty
 
-###############################################################################
-# Warns if you try to commit a "debugger"
-###############################################################################
-git diff --cached | grep -q "debugger"
-if [[ $? == 0 ]]; then
-    read -p "Do you really want to commit this 'debugger'? (y/N) " answer
-    if [[ "$answer" != "y" ]]; then
-        exit 1;
+warn_if_trying_to_commit() {
+    git diff --cached | grep -q "+.*$1"
+    if [[ $? == 0 ]]; then
+        read -p "Do you really want to commit this '$1'? (y/N) " answer
+        if [[ "$answer" != "y" ]]; then
+            exit 1;
+        fi
     fi
-fi
+}
+
+warn_if_trying_to_commit "debugger"
+warn_if_trying_to_commit "<<<<<<< HEAD"
 
 ###############################################################################
 # Warns if you try to commit directly to the qa or master branch
