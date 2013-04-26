@@ -56,6 +56,16 @@ git commit --no-verify -m "deal with it"
 Just copy this on the root path of your project, wait for some seconds and you should be good to go.
 ``git clone git@github.com:brianstorti/git-hooks.git /tmp/git-hooks;cp /tmp/git-hooks/hooks/* .git/hooks;chmod +x .git/hooks/*```
 
+
+If you want to use theses hooks for every created or cloned project, you can take advantage of some git awesomeness:
+```
+mkdir -p ~/.git_template/hooks
+git clone git@github.com:brianstorti/git-hooks.git /tmp/git-hooks
+cp /tmp/git-hooks/hooks/* ~/.git_template/hooks
+
+git config --global init.templatedir "~/.git_template"
+```
+
 ## License
 
 Copyright (c) 2013 Brian Thomas Storti
