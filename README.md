@@ -54,10 +54,11 @@ git commit --no-verify -m "deal with it"
 **Warning: This will override all of your custom git hooks. If you don't have any custom hook, don't worry. But if you do, make sure to back it up first.**
 
 Just copy this on the root path of your project, wait for some seconds and you should be good to go.
-``git clone git@github.com:brianstorti/git-hooks.git /tmp/git-hooks && \
-  cp /tmp/git-hooks/hooks/* .git/hooks && \
-  chmod +x .git/hooks/*```
-
+```
+git clone git@github.com:brianstorti/git-hooks.git /tmp/git-hooks && \
+cp /tmp/git-hooks/hooks/* .git/hooks && \
+chmod +x .git/hooks/*
+```
 
 If you want to use theses hooks for every created or cloned project, you can take advantage of some git awesomeness:
 ```
