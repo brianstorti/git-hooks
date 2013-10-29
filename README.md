@@ -60,7 +60,7 @@ cp /tmp/git-hooks/hooks/* .git/hooks && \
 chmod +x .git/hooks/*
 ```
 
-If you want to use theses hooks for every created or cloned project, you can take advantage of some git awesomeness:
+If you want to use theses hooks for every created or cloned project, you can take advantage of some git awesomeness (requires Git 1.7.1 or newer):
 ```
 mkdir -p ~/.git_template/hooks
 git clone git@github.com:brianstorti/git-hooks.git /tmp/git-hooks
