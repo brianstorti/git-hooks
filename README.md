@@ -2,7 +2,7 @@
 
 Some git hooks to make our lives easier and safer.
 
-![example](http://img195.imageshack.us/img195/3985/screenshot20130208at324.png)
+![example](https://github.com/brianstorti/git-hooks/blob/master/example.png)
 
 ## How it works?
 
@@ -94,4 +94,3 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/brianstorti/git-hooks/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
